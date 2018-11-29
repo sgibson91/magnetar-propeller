@@ -1,4 +1,4 @@
 numpy==1.9.1
 scipy==0.15.1
 matplotlib==1.4.2
-emcee==2.2.0
+-e git+https://github.com/dfm/emcee/tree/v2.2.1#egg=emcee
