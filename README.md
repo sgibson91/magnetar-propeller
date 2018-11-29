@@ -1,4 +1,4 @@
-# Magnetar Propeller model with Fallback Accretion
+## Magnetar Propeller Model with Fallback Accretion
 
 ### Paper
 
@@ -20,3 +20,7 @@ URL = {http://dx.doi.org/10.1093/mnras/stx1531},
 eprint = {/oup/backfile/content_public/journal/mnras/470/4/10.1093_mnras_stx1531/1/stx1531.pdf}
 }
 ```
+
+### Licence
+
+This work is published under the MIT licence. Please see the `LICENCE` file for further information.
