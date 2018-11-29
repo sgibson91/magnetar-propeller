@@ -21,6 +21,6 @@ eprint = {/oup/backfile/content_public/journal/mnras/470/4/10.1093_mnras_stx1531
 }
 ```
 
-### Licence
+### License
 
-This work is published under the MIT licence. Please see the `LICENCE` file for further information.
+This work is published under the MIT license. Please see the `LICENSE` file for further information.
