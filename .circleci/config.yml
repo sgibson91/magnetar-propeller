@@ -1,1 +1,11 @@
-hello
+version: 2
+jobs:
+  build:  # required for runs that don't use workflows
+    working_directory: ~/magnetar-propeller
+    docker:
+      - image: circleci/python:2.7-jessie-node-browsers-legacy  # primary container for the build job
+    steps:
+      - checkout  # checkout source code to working directory
+      - run:
+          command: |  # use pip to install dependencies
+            pip install -r requirements.txt
