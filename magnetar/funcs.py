@@ -67,7 +67,7 @@ Returns a list object --> element 1: Initial disc mass in grams
 
 
 
-def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n, alpha=0.1, cs7=1.0, k=0.9):
+def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n=1.0, alpha=0.1, cs7=1.0, k=0.9):
     """
 Function to pass to ODEINT which will calculate a disc mass and angular frequency for given time points.
 
