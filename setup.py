@@ -18,7 +18,7 @@ URL = 'https://github.com/sgibson91/magnetar-propeller'
 EMAIL = 'sarah_gibson91@hotmail.co.uk'
 AUTHOR = 'Sarah L. Gibson'
 REQUIRES_PYTHON = '=2.7.15'
-VERSION = None
+VERSION = '1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
