@@ -12,22 +12,20 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'mypackage'
-DESCRIPTION = 'My short description for my project.'
-URL = 'https://github.com/me/myproject'
-EMAIL = 'me@example.com'
-AUTHOR = 'Awesome Soul'
-REQUIRES_PYTHON = '>=3.6.0'
+NAME = 'magnetar'
+DESCRIPTION = 'Suite of functions to model the emissions of a propellering magnetar being fed by fallback accretion and then optimise this for data using MCMC.'
+URL = 'https://github.com/sgibson91/magnetar-propeller'
+EMAIL = 'sarah_gibson91@hotmail.co.uk'
+AUTHOR = 'Sarah L. Gibson'
+REQUIRES_PYTHON = '=2.7.15'
 VERSION = None
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    # 'requests', 'maya', 'records',
 ]
 
 # What packages are optional?
 EXTRAS = {
-    # 'fancy feature': ['django'],
 }
 
 # The rest you shouldn't have to touch too much :)
