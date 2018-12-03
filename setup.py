@@ -17,7 +17,7 @@ DESCRIPTION = 'Suite of functions to model the emissions of a propellering magne
 URL = 'https://github.com/sgibson91/magnetar-propeller'
 EMAIL = 'sarah_gibson91@hotmail.co.uk'
 AUTHOR = 'Sarah L. Gibson'
-REQUIRES_PYTHON = '=2.7.15'
+REQUIRES_PYTHON = '>=2.7'
 VERSION = None
 
 # What packages are required for this module to be executed?
