@@ -1,51 +1,19 @@
-import os
-import sys
-import warnings
-import contextlib
 import numpy as np
 from scipy.integrate import odeint
-from scipy.interpolate import interp1d
 
-warnings.filterwarnings('ignore')
 
 #=============================================================================#
 # Global constants
-G = 6.674e-8                  # Gravitational constant - cgs units
-c = 3.e10                     # Speed of light - cm/s
-R = 1.e6                      # Magnetar radius - cm
-Msol = 1.99e33                # Solar mass - grams
-M = 1.4 * Msol                # Magnetar mass - grams
-I = (4.0 / 5.0) * M * R**2.0  # Moment of Inertia
+G = 6.674e-8                    # Gravitational constant - cgs units
+c = 3.0e10                      # Speed of light - cm/s
+R = 1.0e6                       # Magnetar radius - cm
+Msol = 1.99e33                  # Solar mass - grams
+M = 1.4 * Msol                  # Magnetar mass - grams
+I = (4.0 / 5.0) * M * R ** 2.0  # Moment of Inertia
 GM = G * M
 tarr = np.logspace(0.0, 6.0, num=10001, base=10.0)  # Time array
 #=============================================================================#
 
-#=============================================================================#
-# Suppress lsoda warnings
-def fileno(file_or_fd):
-    fd = getattr(file_or_fd, 'fileno', lambda: file_or_fd)()
-    if not isinstance(fd, int):
-        raise ValueError("Expected a file (`.fileno()`) or a file descriptor")
-    return fd
-
-@contextlib.contextmanager
-def stdout_redirected(to=os.devnull, stdout=None):
-    if stdout is None:
-        stdout = sys.stdout
-    stdout_fd = fileno(stdout)
-    with os.fdopen(os.dup(stdout_fd), 'wb') as copied:
-        stdout.flush()
-        try:
-            os.dup2(fileno(to), stdout_fd)
-        except ValueError:
-            with open(to, 'wb') as to_file:
-                os.dup2(to_file.fileno(), stdout_fd)
-        try:
-            yield stdout
-        finally:
-            stdout.flush()
-            os.dup2(copied.fileno(), stdout_fd)
-#=============================================================================#
 
 #=============================================================================#
 def init_conds(arr):
@@ -54,17 +22,16 @@ Function to calculate the initial conditions to pass to ODEINT by converting uni
 Principally, converting initial disc mass from solar masses to grams, and calculating an initial angular frequency from a spin period in milliseconds.
 
 Usage >>> init_conds(arr)
-arr : list --> element 1: Initial spin period in milliseconds
-               element 2: Initial disc mass in solar masses
+arr : list --> element 0: Initial spin period in milliseconds
+               element 1: Initial disc mass in solar masses
 
-Returns a list object --> element 1: Initial disc mass in grams
-                          element 2: Initial angular frequency in "per second"
+Returns a list object --> element 0: Initial disc mass in grams
+                          element 1: Initial angular frequency in "per second"
     """
     Mdisc0 = arr[1] * Msol                      # Disc mass
     omega0 = (2.0 * np.pi) / (1.0e-3 * arr[0])  # Angular frequency
 
-    return [Mdisc0, omega0]
-
+    return Mdisc0, omega0
 
 
 def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n=1.0, alpha=0.1, cs7=1.0, k=0.9):
@@ -85,7 +52,8 @@ epsilon : timescale ration (float)
       k : capping fraction (float)
     """
     # Initial conditions
-    Mdisc, omega = y
+    Mdisc = y[0]
+    omega = y[1]
     
     # Constants
     Rdisc = RdiscI * 1.0e5                 # Disc radius - cm
@@ -111,7 +79,7 @@ epsilon : timescale ration (float)
     Ndip = (-1.0 * mu ** 2.0 * omega ** 3.0) / (6.0 * c ** 3.0)  # Dipole torque
     
     # Mass flow rates and efficiencies
-    eta2 = 0.5 * (1.0 + np.tanh(n * (w- 1.0)))
+    eta2 = 0.5 * (1.0 + np.tanh(n * (w - 1.0)))
     eta1 = 1.0 - eta2
     Mdotprop = eta2 * (Mdisc / tvisc)  # Propelled
     Mdotacc = eta1 * (Mdisc / tvisc)   # Accreted
