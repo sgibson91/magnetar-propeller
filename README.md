@@ -1,4 +1,11 @@
-## Magnetar Propeller Model with Fallback Accretion
+# Magnetar Propeller Model with Fallback Accretion
+
+## Table of Contents
+
+* [Attributions](#attr)
+
+<a name="attr"></a>
+## Attributions
 
 ### Paper
 
