@@ -1,5 +1,7 @@
 # Magnetar Propeller Model with Fallback Accretion
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/sgibson91/magnetar-propeller/master)
+
 ## Table of Contents
 
 * [Attributions](#attr)
