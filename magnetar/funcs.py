@@ -18,8 +18,11 @@ tarr = np.logspace(0.0, 6.0, num=10001, base=10.0)  # Time array
 #=============================================================================#
 def init_conds(arr):
     """
-Function to calculate the initial conditions to pass to ODEINT by converting units.
-Principally, converting initial disc mass from solar masses to grams, and calculating an initial angular frequency from a spin period in milliseconds.
+Function to calculate the initial conditions to pass to ODEINT by converting
+units.
+
+Principally, converting initial disc mass from solar masses to grams, and
+calculating an initial angular frequency from a spin period in milliseconds.
 
 Usage >>> init_conds(arr)
 arr : list --> element 0: Initial spin period in milliseconds
@@ -34,9 +37,11 @@ Returns a list object --> element 0: Initial disc mass in grams
     return Mdisc0, omega0
 
 
-def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n=1.0, alpha=0.1, cs7=1.0, k=0.9):
+def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n=1.0, alpha=0.1, cs7=1.0,
+         k=0.9):
     """
-Function to pass to ODEINT which will calculate a disc mass and angular frequency for given time points.
+Function to pass to ODEINT which will calculate a disc mass and angular
+frequency for given time points.
 
 Usage >>> ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n)
       y : output of init_conds()
@@ -63,7 +68,8 @@ epsilon : timescale ration (float)
     tfb = epsilon * tvisc                  # Fallback timescale - s
     
     # Radii - Alfven, Corotation, Light Cylinder
-    Rm = mu ** (4.0 / 7.0) * GM ** (-1.0 / 7.0) * (Mdisc / tvisc) ** (-2.0 / 7.0)
+    Rm = (mu ** (4.0 / 7.0) * GM ** (-1.0 / 7.0) * (Mdisc / tvisc) ** (-2.0 /
+          7.0))
     Rc = (GM / omega ** 2.0) ** (2.0 / 3.0)
     Rlc = c / omega
     # Cap the Alfven radius
@@ -73,10 +79,12 @@ epsilon : timescale ration (float)
     w = (Rm / Rc) ** (3.0 / 2.0)  # Fastness parameter
     
     bigT = 0.5 * I * omega ** 2.0  # Rotational energy
-    modW = (0.6 * M * c ** 2.0 * ((GM / (R * c ** 2.0)) / (1.0 - 0.5 * (GM / (R * c ** 2.0)))))  # Binding energy
+    modW = (0.6 * M * c ** 2.0 * ((GM / (R * c ** 2.0)) / (1.0 - 0.5 * (GM / (R
+            * c ** 2.0)))))  # Binding energy
     rot_param = bigT / modW  # Rotation parameter
     
-    Ndip = (-1.0 * mu ** 2.0 * omega ** 3.0) / (6.0 * c ** 3.0)  # Dipole torque
+    # Dipole torque
+    Ndip = (-1.0 * mu ** 2.0 * omega ** 3.0) / (6.0 * c ** 3.0)
     
     # Mass flow rates and efficiencies
     eta2 = 0.5 * (1.0 + np.tanh(n * (w - 1.0)))
@@ -87,7 +95,7 @@ epsilon : timescale ration (float)
     Mdotdisc = Mdotfb - Mdotprop - Mdotacc  # Mass flow through the disc
     
     if rot_param > 0.27:
-        Nacc = 0.0  # Prevents magnetar break-u[
+        Nacc = 0.0  # Prevents magnetar break-up
     else:
         # Accretion torque
         if Rm >= R:
