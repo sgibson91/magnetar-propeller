@@ -16,7 +16,7 @@ tarr = np.logspace(0.0, 6.0, num=10001, base=10.0)  # Time array
 
 
 #=============================================================================#
-def init_conds(arr):
+def init_conds(P, MdiscI):
     """
 Function to calculate the initial conditions to pass to ODEINT by converting
 units.
@@ -25,16 +25,16 @@ Principally, converting initial disc mass from solar masses to grams, and
 calculating an initial angular frequency from a spin period in milliseconds.
 
 Usage >>> init_conds(arr)
-arr : list --> element 0: Initial spin period in milliseconds
-               element 1: Initial disc mass in solar masses
+     P : Initial spin period - milliseconds (float)
+MdiscI : Initial disc mass - solar masses (float)
 
-Returns a list object --> element 0: Initial disc mass in grams
-                          element 1: Initial angular frequency in "per second"
+Returns an array object --> element 0: Initial disc mass in grams
+                            element 1: Initial angular frequency in "per second"
     """
-    Mdisc0 = arr[1] * Msol                      # Disc mass
-    omega0 = (2.0 * np.pi) / (1.0e-3 * arr[0])  # Angular frequency
+    Mdisc0 = MdiscI * Msol                 # Disc mass
+    omega0 = (2.0 * np.pi) / (P * arr[0])  # Angular frequency
 
-    return Mdisc0, omega0
+    return np.array([Mdisc0, omega0])
 
 
 def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n=1.0, alpha=0.1, cs7=1.0,
@@ -55,10 +55,12 @@ epsilon : timescale ration (float)
   alpha : Viscosity prescription (float)
     cs7 : Sound speed - 10^7 cm/s (float)
       k : capping fraction (float)
+
+Returns an array object containing the time derivatives on the disc mass and the 
+angular frequency to be integrated by ODEINT.
     """
     # Initial conditions
-    Mdisc = y[0]
-    omega = y[1]
+    Mdisc, omega = y
     
     # Constants
     Rdisc = RdiscI * 1.0e5                 # Disc radius - cm
@@ -105,6 +107,6 @@ epsilon : timescale ration (float)
     
     omegadot = (Nacc + Ndip) / I  # Angular frequency time derivative
     
-    return Mdotdisc, omegadot
+    return np.array([Mdotdisc, omegadot])
 
 
