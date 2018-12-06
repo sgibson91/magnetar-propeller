@@ -8,6 +8,5 @@ dependencies:
   - matplotlib=2.0.0
   - pip:
     - twine
-    - git+https://github.com/sgibson91/magnetar-propeller/magnetar#egg=magnetar
     - git+https://github.com/dfm/emcee.git@v2.2.1#egg=emcee
     - git+https://github.com/dfm/corner.py#egg=corner
