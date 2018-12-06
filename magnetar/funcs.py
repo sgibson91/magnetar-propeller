@@ -29,7 +29,8 @@ Usage >>> init_conds(arr)
 MdiscI : Initial disc mass - solar masses (float)
 
 Returns an array object --> element 0: Initial disc mass in grams
-                            element 1: Initial angular frequency in "per second"
+                            element 1: Initial angular frequency in "per
+                                       second"
     """
     Mdisc0 = MdiscI * Msol                 # Disc mass
     omega0 = (2.0 * np.pi) / (1.0e-3 * P)  # Angular frequency
@@ -56,7 +57,7 @@ epsilon : timescale ration (float)
     cs7 : Sound speed - 10^7 cm/s (float)
       k : capping fraction (float)
 
-Returns an array object containing the time derivatives on the disc mass and the 
+Returns an array object containing the time derivatives on the disc mass and
 angular frequency to be integrated by ODEINT.
     """
     # Initial conditions
