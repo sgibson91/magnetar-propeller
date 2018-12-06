@@ -1,0 +1,12 @@
+name: magnetar-env
+channels:
+  - conda-forge
+dependencies:
+  - python=2.7.13
+  - numpy=1.11.2
+  - scipy=0.18.1
+  - matplotlib=2.0.0
+  - pip:
+    - magnetar
+    - git+https://github.com/dfm/emcee.git@v2.2.1#egg=emcee
+    - git+https://github.com/dfm/corner.py#egg=corner
