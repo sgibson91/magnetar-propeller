@@ -1,3 +1,6 @@
+# This file was modelled on the below example:
+# https://github.com/binder-examples/python-conda_pip
+
 name: magnetar-env
 channels:
   - conda-forge
