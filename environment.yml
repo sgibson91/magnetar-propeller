@@ -5,10 +5,10 @@ name: magnetar-env
 channels:
   - conda-forge
 dependencies:
-  - python=2.7.*
-  - numpy
-  - scipy
-  - matplotlib
+  - python=2.7.5
+  - numpy=1.9.1
+  - scipy=0.15.1
+  - matplotlib=1.4.2
   - corner
   - emcee
   - pip:
