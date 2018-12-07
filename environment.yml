@@ -2,8 +2,8 @@
 # https://github.com/binder-examples/python-conda_pip
 
 name: magnetar-env
-channels:
-  - conda-forge
+#channels:
+#  - conda-forge
 dependencies:
   - python=2.7.13
   - numpy=1.11.2
@@ -13,4 +13,4 @@ dependencies:
   - emcee==2.2.1
   - pip:
     - twine
-    - https://github.com/sgibson91/magnetar-propeller/setup.py
+    - git+https://github.com/sgibson91/magnetar-propeller/setup.py
