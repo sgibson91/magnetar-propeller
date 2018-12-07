@@ -4,12 +4,12 @@ from scipy.integrate import odeint
 
 #=============================================================================#
 # Global constants
-G = 6.674e-8                    # Gravitational constant - cgs units
-c = 3.0e10                      # Speed of light - cm/s
-R = 1.0e6                       # Magnetar radius - cm
-Msol = 1.99e33                  # Solar mass - grams
-M = 1.4 * Msol                  # Magnetar mass - grams
-I = (4.0 / 5.0) * M * R ** 2.0  # Moment of Inertia
+G = 6.674e-8                      # Gravitational constant - cgs units
+c = 3.0e10                        # Speed of light - cm/s
+R = 1.0e6                         # Magnetar radius - cm
+Msol = 1.99e33                    # Solar mass - grams
+M = 1.4 * Msol                    # Magnetar mass - grams
+I = (4.0 / 5.0) * M * (R ** 2.0)  # Moment of Inertia
 GM = G * M
 tarr = np.logspace(0.0, 6.0, num=10001, base=10.0)  # Time array
 #=============================================================================#
@@ -24,7 +24,7 @@ units.
 Principally, converting initial disc mass from solar masses to grams, and
 calculating an initial angular frequency from a spin period in milliseconds.
 
-Usage >>> init_conds(arr)
+Usage >>> init_conds(P, MdiscI)
      P : Initial spin period - milliseconds (float)
 MdiscI : Initial disc mass - solar masses (float)
 
@@ -57,7 +57,7 @@ epsilon : timescale ration (float)
     cs7 : Sound speed - 10^7 cm/s (float)
       k : capping fraction (float)
 
-Returns an array object containing the time derivatives on the disc mass and
+Returns an array object containing the time derivatives of the disc mass and
 angular frequency to be integrated by ODEINT.
     """
     # Initial conditions
@@ -66,14 +66,14 @@ angular frequency to be integrated by ODEINT.
     # Constants
     Rdisc = RdiscI * 1.0e5                 # Disc radius - cm
     tvisc = Rdisc / (alpha * cs7 * 1.0e7)  # Viscous timescale - s
-    mu = 1.0e15 * B * R ** 3.0             # Magnetic Dipole Moment
+    mu = 1.0e15 * B * (R ** 3.0)           # Magnetic Dipole Moment
     M0 = delta * MdiscI * Msol             # Global Fallback Mass Budget - g
     tfb = epsilon * tvisc                  # Fallback timescale - s
     
     # Radii - Alfven, Corotation, Light Cylinder
-    Rm = (mu ** (4.0 / 7.0) * GM ** (-1.0 / 7.0) * (Mdisc / tvisc) ** (-2.0 /
-          7.0))
-    Rc = (GM / omega ** 2.0) ** (2.0 / 3.0)
+    Rm = ((mu ** (4.0 / 7.0)) * (GM ** (-1.0 / 7.0)) * ((Mdisc / tvisc) **
+          (-2.0 / 7.0)))
+    Rc = (GM / (omega ** 2.0)) ** (2.0 / 3.0)
     Rlc = c / omega
     # Cap the Alfven radius
     if Rm >= k * Rlc:
@@ -81,20 +81,20 @@ angular frequency to be integrated by ODEINT.
     
     w = (Rm / Rc) ** (3.0 / 2.0)  # Fastness parameter
     
-    bigT = 0.5 * I * omega ** 2.0  # Rotational energy
-    modW = (0.6 * M * c ** 2.0 * ((GM / (R * c ** 2.0)) / (1.0 - 0.5 * (GM / (R
-            * c ** 2.0)))))  # Binding energy
-    rot_param = bigT / modW  # Rotation parameter
+    bigT = 0.5 * I * (omega ** 2.0)  # Rotational energy
+    modW = (0.6 * M * (c ** 2.0) * ((GM / (R * (c ** 2.0))) / (1.0 - 0.5 * (GM
+            / (R * (c ** 2.0))))))   # Binding energy
+    rot_param = bigT / modW          # Rotation parameter
     
     # Dipole torque
-    Ndip = (-1.0 * mu ** 2.0 * omega ** 3.0) / (6.0 * c ** 3.0)
+    Ndip = (-1.0 * (mu ** 2.0) * (omega ** 3.0)) / (6.0 * (c ** 3.0))
     
     # Mass flow rates and efficiencies
     eta2 = 0.5 * (1.0 + np.tanh(n * (w - 1.0)))
     eta1 = 1.0 - eta2
     Mdotprop = eta2 * (Mdisc / tvisc)  # Propelled
     Mdotacc = eta1 * (Mdisc / tvisc)   # Accreted
-    Mdotfb = (M0 / tfb) * ((t + tfb) / tfb) ** (-5.0 / 3.0)  # Fallback rate
+    Mdotfb = (M0 / tfb) * (((t + tfb) / tfb) ** (-5.0 / 3.0))  # Fallback rate
     Mdotdisc = Mdotfb - Mdotprop - Mdotacc  # Mass flow through the disc
     
     if rot_param > 0.27:
@@ -102,9 +102,9 @@ angular frequency to be integrated by ODEINT.
     else:
         # Accretion torque
         if Rm >= R:
-            Nacc = (GM * Rm) ** 0.5 * (Mdotacc - Mdotprop)
+            Nacc = ((GM * Rm) ** 0.5) * (Mdotacc - Mdotprop)
         else:
-            Nacc = (GM * R) ** 0.5 * (Mdotacc - Mdotprop)
+            Nacc = ((GM * R) ** 0.5) * (Mdotacc - Mdotprop)
     
     omegadot = (Nacc + Ndip) / I  # Angular frequency time derivative
     

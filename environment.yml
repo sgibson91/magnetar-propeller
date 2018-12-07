@@ -1,0 +1,16 @@
+# This file was modelled on the below example:
+# https://github.com/binder-examples/python-conda_pip
+
+name: magnetar-env
+channels:
+  - conda-forge
+dependencies:
+  - python=2.7.13
+  - numpy=1.11.2
+  - scipy=0.18.1
+  - matplotlib=2.0.0
+  - corner
+  - emcee
+  - pip:
+    - twine
+    - git+https://github.com/sgibson91/magnetar-propeller/
