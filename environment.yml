@@ -13,4 +13,4 @@ dependencies:
   - emcee==2.2.1
   - pip:
     - twine
-    - git+https://github.com/sgibson91/magnetar-propeller/setup.py
+    - git+https://github.com/sgibson91/magnetar-propeller/
