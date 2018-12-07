@@ -4,7 +4,15 @@
 
 ## Table of Contents
 
+* [Reproducibility](#repres)
 * [Attributions](#attr)
+
+<a name="repres"></a>
+## Reproducibililty
+
+The aim of presenting the code used to develop the paper here (among other things) was to test if the work was reproducible. The term *reproducible research* can have a lot of definitions in a lot of disciplines. Here, it is used such that any user can recreate an experiment and retrieve the same results when given an accurate description of the working environment.
+
+It has been difficult to recreate a working environment which reproduces the figures in the presented paper in spite of access to the original working environments and as such this repo is not currently reproducing the content of the paper. It seems that this issue spreads beyond simply noting the specific versions of modules used. This is still under investigation but it cannot be guaranteed that it will be resolved.
 
 <a name="attr"></a>
 ## Attributions
