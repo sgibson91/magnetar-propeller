@@ -39,7 +39,6 @@ Returns an array object --> element 0: Initial disc mass in grams
     return np.array([Mdisc0, omega0])
 
 
-
 def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n=1.0, alpha=0.1, cs7=1.0,
          k=0.9):
     """
