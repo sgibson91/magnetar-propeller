@@ -13,3 +13,4 @@ dependencies:
     - twine
     - git+https://github.com/dfm/emcee.git@v2.2.1#egg=emcee
     - git+https://github.com/dfm/corner.py#egg=corner
+    - pip install -e setup.py
