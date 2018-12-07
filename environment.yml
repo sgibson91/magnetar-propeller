@@ -13,4 +13,4 @@ dependencies:
   - emcee
   - pip:
     - twine
-    - git+https://github.com/sgibson91/magnetar-propeller/tree/feature/adding-notebooks
+    - git+https://github.com/sgibson91/magnetar-propeller/
