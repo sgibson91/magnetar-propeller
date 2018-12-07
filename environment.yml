@@ -9,7 +9,7 @@ dependencies:
   - numpy=1.11.2
   - scipy=0.18.1
   - matplotlib=2.0.0
-  - corner==2.0.0
+  - corner
   - emcee==2.2.1
   - pip:
     - twine
