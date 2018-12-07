@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# This file was created through the guidance of the binder examples:
+# https://github.com/binder-examples/setup.py
+
 # Note: To use the 'upload' functionality of this file, you must:
 #   $ pip install twine
 
@@ -13,7 +16,9 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data.
 NAME = 'magnetar'
-DESCRIPTION = 'Suite of functions to model the emissions of a propellering magnetar being fed by fallback accretion and then optimise this for data using MCMC.'
+DESCRIPTION = ("Suite of functions to model the emissions of a propellering "
+               "magnetar being fed by fallback accretion and then optimise "
+               "this for data using MCMC.")
 URL = 'https://github.com/sgibson91/magnetar-propeller'
 EMAIL = 'sarah_gibson91@hotmail.co.uk'
 AUTHOR = 'Sarah L. Gibson'
@@ -117,10 +122,8 @@ setup(
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7'
     ],
     # $ setup.py publish support.
     cmdclass={
