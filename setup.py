@@ -16,7 +16,9 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data.
 NAME = 'magnetar'
-DESCRIPTION = 'Suite of functions to model the emissions of a propellering magnetar being fed by fallback accretion and then optimise this for data using MCMC.'
+DESCRIPTION = ("Suite of functions to model the emissions of a propellering "
+               "magnetar being fed by fallback accretion and then optimise "
+               "this for data using MCMC.")
 URL = 'https://github.com/sgibson91/magnetar-propeller'
 EMAIL = 'sarah_gibson91@hotmail.co.uk'
 AUTHOR = 'Sarah L. Gibson'
