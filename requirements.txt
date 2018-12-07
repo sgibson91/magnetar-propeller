@@ -1,1 +1,6 @@
-
+twine
+numpy==1.9.1
+scipy==0.15.1
+matplotlib==1.4.2
+-e git+https://github.com/dfm/emcee.git@v2.2.1#egg=emcee
+-e git+https://github.com/dfm/corner.py#egg=corner
