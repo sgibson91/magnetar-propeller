@@ -5,8 +5,8 @@ from scipy.integrate import odeint
 #=============================================================================#
 # Global constants
 G = 6.674e-8                      # Gravitational constant - cgs units
-c = 3.e10                         # Speed of light - cm/s
-R = 1.e6                          # Magnetar radius - cm
+c = 3.0e10                        # Speed of light - cm/s
+R = 1.0e6                         # Magnetar radius - cm
 Msol = 1.99e33                    # Solar mass - grams
 M = 1.4 * Msol                    # Magnetar mass - grams
 I = (4.0 / 5.0) * M * (R ** 2.0)  # Moment of Inertia
@@ -46,13 +46,13 @@ def ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n=1.0, alpha=0.1, cs7=1.0,
 Function to pass to ODEINT which will calculate a disc mass and angular
 frequency for given time points.
 
-Usage >>> ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta)
+Usage >>> ODEs(y, t, B, MdiscI, RdiscI, epsilon, delta, n)
       y : output of init_conds()
       t : array of time points (t_arr above)
       B : Magnetic Field Strength - 10^15 Gauss (float)
  MdiscI : Initial disc mass - Solar masses (float)
  RdiscI : Disc radius - km (float)
-epsilon : timescale ratio (float)
+epsilon : timescale ration (float)
   delta : mass ratio (float)
       n : propeller "switch-on" (float)
   alpha : Viscosity prescription (float)
@@ -73,8 +73,8 @@ angular frequency to be integrated by ODEINT.
     tfb = epsilon * tvisc                  # Fallback timescale - s
     
     # Radii - Alfven, Corotation, Light Cylinder
-    Rm = ((mu ** (4.0 / 7.0)) * (GM ** (-1.0 / 7.0)) * (Mdisc / tvisc) ** (-2.0
-          / 7.0))
+    Rm = ((mu ** (4.0 / 7.0)) * (GM ** (-1.0 / 7.0)) * ((Mdisc / tvisc) **
+          (-2.0 / 7.0)))
     Rc = (GM / (omega ** 2.0)) ** (2.0 / 3.0)
     Rlc = c / omega
     # Cap the Alfven radius
@@ -85,8 +85,8 @@ angular frequency to be integrated by ODEINT.
     
     bigT = 0.5 * I * (omega ** 2.0)  # Rotational energy
     modW = (0.6 * M * (c ** 2.0) * ((GM / (R * (c ** 2.0))) / (1.0 - 0.5 * (GM
-            / (R * (c ** 2.0))))))  # Binding energy
-    rot_param = bigT / modW  # Rotation parameter
+            / (R * (c ** 2.0))))))   # Binding energy
+    rot_param = bigT / modW          # Rotation parameter
     
     # Dipole torque
     Ndip = (-1.0 * (mu ** 2.0) * (omega ** 3.0)) / (6.0 * (c ** 3.0))
@@ -96,11 +96,11 @@ angular frequency to be integrated by ODEINT.
     eta1 = 1.0 - eta2
     Mdotprop = eta2 * (Mdisc / tvisc)  # Propelled
     Mdotacc = eta1 * (Mdisc / tvisc)   # Accreted
-    Mdotfb = (M0 / tfb) * ((t + tfb) / tfb) ** (-5.0 / 3.0)  # Fallback rate
+    Mdotfb = (M0 / tfb) * (((t + tfb) / tfb) ** (-5.0 / 3.0))  # Fallback rate
     Mdotdisc = Mdotfb - Mdotprop - Mdotacc  # Mass flow through the disc
     
     if rot_param > 0.27:
-        Nacc = 0.0  # Prevents magnetar break-u[
+        Nacc = 0.0  # Prevents magnetar break-up
     else:
         # Accretion torque
         if Rm >= R:
@@ -110,6 +110,6 @@ angular frequency to be integrated by ODEINT.
     
     omegadot = (Nacc + Ndip) / I  # Angular frequency time derivative
     
-    return Mdotdisc, omegadot
+    return np.array([Mdotdisc, omegadot])
 
 
