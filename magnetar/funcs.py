@@ -11,6 +11,7 @@ Msol = 1.99e33                    # Solar mass - grams
 M = 1.4 * Msol                    # Magnetar mass - grams
 I = (4.0 / 5.0) * M * (R ** 2.0)  # Moment of Inertia
 GM = G * M
+
 tarr = np.logspace(0.0, 6.0, num=10001, base=10.0)  # Time array
 #=============================================================================#
 
