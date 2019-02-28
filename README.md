@@ -1,3 +1,7 @@
+# ATTENTION PLEASE
+
+This repo has been archived and is no longer under active development. Please see github.com/sgibson91/magprop instead.
+
 ## Magnetar Propeller Model with Fallback Accretion
 
 ### Paper
